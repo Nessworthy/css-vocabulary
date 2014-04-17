@@ -1,51 +1,63 @@
 $(document).ready(function() {
-  var vocab = [
-    'comment',
-    'statement',
-    'rule-set',
-    'at-rule',
-    'declaration-block',
-    'selector',
-    'simple-selector',
-    'id-selector',
-    'class-selector',
-    'attribute-selector',
-    'pseudo-class',
-    'pseudo-element',
-    'combinator',
-    'declaration',
-    'property',
-    'value',
-    'function',
-    'keyword',
-    'identifier',
-    'string',
-    'url',
-    'number',
-    'percentage',
-    'length',
-    'unit',
-    'color',
-    'vendor-prefix'
-  ];
+  var vocabForHumans = [
+    'Comment',
+    'Statement',
+    'Rule set',
+    'At rule',
+    'Declaration block',
+    'Selector',
+    'Simple selector',
+    'ID selector',
+    'Class selector',
+    'Attribute selector',
+    'Pseudo-class',
+    'Pseudo-element',
+    'Combinator',
+    'Declaration',
+    'Property',
+    'Value',
+    'Function',
+    'Keyword',
+    'Identifier',
+    'String',
+    'Url',
+    'Number',
+    'Percentage',
+    'Length',
+    'Unit',
+    'Color',
+    'Vendor prefix'
+  ],
+  vocab = [];
+  
+  // Create slugs from vocab strings.
+  function buildVocabSlugs (vocabForHumans) {
+    var vocabSlugs = [],
+        slug;
+    for (var i = 0; i < vocabForHumans.length; i++) {
+      slug = vocabForHumans[i].toLowerCase().replace(' ', '-');
+      vocalSlugs.push(slug);
+    }
+    return vocabSlugs;
+  }
+  vocab = buildVocabSlugs(vocabForHumans);
+  
   //Build vocab list in the sidebar
-  function buildVocabList (vocab) {
+  function buildVocabList (vocab, vocabForHumans) {
+    var vocabList = $('.vocabList');
     for (var i = 0; i < vocab.length; i++) {
-      text = vocab[i].replace('-', ' ');
-      text = text.charAt(0).toUpperCase() + text.slice(1);
-      $('.vocabList').append('<li class="'+vocab[i]+'" tabindex="0">'+text+'</li>');
+      vocabList.append('<li class="'+vocab[i]+'" tabindex="0">'+vocabForHumans[i]+'</li>');
     }
   }
-  buildVocabList(vocab);
+  buildVocabList(vocab, vocabForHumans);
 
-  function buildVocabSelect (vocab) {
+  function buildVocabSelect (vocab, vocabForHumans) {
+    var vocabSelect = $('.vocabSelect');
     for (var i = 0; i < vocab.length; i++) {
-      text = vocab[i].replace('-', ' ');
-      text = text.charAt(0).toUpperCase() + text.slice(1);
-      $('.vocabSelect').append('<option value="'+vocab[i]+'">'+text+'</option>');
+      vocabSelect.append('<option value="'+vocab[i]+'">'+vocabForHumans[i]+'</option>');
     }
   }
-  buildVocabSelect(vocab);
+  buildVocabSelect(vocab, vocabForHumans);
 
   var selectable = '.' + vocab.join(', .');
   var selectableCSS = '.css .' + vocab.join(', .css .');
